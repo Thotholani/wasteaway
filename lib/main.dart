@@ -10,6 +10,7 @@ import 'package:wasteaway/screens/pickupHistory.dart';
 import 'package:wasteaway/screens/pinScreen.dart';
 import 'package:wasteaway/screens/registerScreen.dart';
 import 'package:wasteaway/screens/subscriptionScreen.dart';
+import 'package:wasteaway/screens/walletScreen.dart';
 import 'package:wasteaway/theme.dart';
 
 void main() {
@@ -18,7 +19,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
-  String url = "http://155.0.75.13/wa_server";
+  String url = "http://192.168.174.239/wa_server";
   // String url = "https://wasteaway.000webhostapp.com";
 
   @override
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
         '/ondemand' : (context) => OnDemandScreen(),
         '/confirmation' : (context) => ConfirmationScreen(),
         '/subscription' : (context) => SubscriptionScreen(),
+        '/wallet' : (context) => WalletScreen(),
       },
     );
   }

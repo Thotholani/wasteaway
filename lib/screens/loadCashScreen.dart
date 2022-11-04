@@ -10,8 +10,9 @@ import '../services/fundsService.dart';
 import '../theme.dart';
 
 class LoadCashScreen extends StatefulWidget {
-  LoadCashScreen({required this.user_id});
+  LoadCashScreen({required this.user_id, required this.navigation});
   final String user_id;
+  final String navigation;
 
   @override
   State<LoadCashScreen> createState() => _LoadCashScreenState();
@@ -65,7 +66,7 @@ class _LoadCashScreenState extends State<LoadCashScreen> {
       if(double.parse(amount) >= 80) {
         final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
         setState((){sharedPreferences.setString("balance", amount);});
-        loadFunds(userId,amount,context);
+        loadFunds(userId,amount,context,widget.navigation);
         // print("User id: " + widget.user_id);
       } else {
         Fluttertoast.showToast(

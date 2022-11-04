@@ -85,7 +85,7 @@ class WalletScreen extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             LoadCashScreen(
-                                                user_id: user_id)));
+                                                user_id: user_id,navigation: "/wallet",)));
                               },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,

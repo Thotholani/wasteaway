@@ -32,8 +32,7 @@ class PickupPointsScreen extends StatelessWidget {
             padding: const EdgeInsets.all(22.0),
             child: Center(
                 child: Container(
-                    height: MediaQuery.of(context).size.height * 0.8,
-                    child: showMyLocations()
+                    child: showMyLocations(MediaQuery.of(context).size.height * 0.8)
             )
         )
         ),
@@ -41,7 +40,7 @@ class PickupPointsScreen extends StatelessWidget {
     );
   }
 
-  FutureBuilder<List<PickupPoint>> showMyLocations() {
+  FutureBuilder<List<PickupPoint>> showMyLocations(double screenSize) {
     return FutureBuilder<List<PickupPoint>>(
       future: PickupPointService.getPickupPoints(user_id),
       builder: (context, snapshot) {
@@ -81,7 +80,7 @@ class PickupPointsScreen extends StatelessWidget {
         } else if (snapshot.hasData) {
           if (snapshot.data!.isNotEmpty) {
             final locations = snapshot.data!;
-            return buildMapWithMarkers(locations);
+            return buildMapWithMarkers(locations, screenSize);
           } else {
             return NoInformation(
               errorDetail: 'You have no pickup location related to your account. Click the button below to create an on demand pickup request',
@@ -154,7 +153,7 @@ class PickupPointsScreen extends StatelessWidget {
   //   );
   // }
 
-  Widget buildMapWithMarkers(List<PickupPoint> pickupPoints) =>
+  Widget buildMapWithMarkers(List<PickupPoint> pickupPoints, double deviceHeight) =>
       ListView.builder(
           itemCount: pickupPoints.length,
           itemBuilder: (context, index) {
@@ -172,12 +171,15 @@ class PickupPointsScreen extends StatelessWidget {
                 infoWindow: InfoWindow(title: pickupPoint.address)
             ));
 
-            return GoogleMap(
-              initialCameraPosition: CameraPosition(
-                  target: LatLng(-15.4081, 28.2963),
-                  zoom: 11.5
+            return Container(
+              height: deviceHeight,
+              child: GoogleMap(
+                initialCameraPosition: CameraPosition(
+                    target: LatLng(-15.4081, 28.2963),
+                    zoom: 11.5
+                ),
+                markers: Set<Marker>.of(markers),
               ),
-              markers: Set<Marker>.of(markers),
             );
           });
 }

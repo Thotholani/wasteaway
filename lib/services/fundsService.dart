@@ -12,7 +12,7 @@ import '../theme.dart';
 
 String apiURL = MyApp().url;
 
-  void loadFunds(String userId, String amount, BuildContext context) async {
+  void loadFunds(String userId, String amount, BuildContext context, String navigationPoint) async {
     String url = apiURL;
     url = url+"/loadFunds.php";
 
@@ -41,13 +41,13 @@ String apiURL = MyApp().url;
               SizedBox(height: 5,),
               const Text('Success')
             ])),
-            content: Text("Funds Loaded Successfully. Click continue to proceed with subscription.",style: Theme.of(context).textTheme.bodyText1,),
+            content: Text("Funds Loaded Successfully. Click continue to proceed.",style: Theme.of(context).textTheme.bodyText1,),
             actions: [
               TextButton(
                 child: const Text('Continue',style: TextStyle(color: Colors.green),),
                 onPressed: () {
                   Navigator.of(context).pop();
-                  Navigator.pushNamed(context, "/subscription");
+                  Navigator.pushNamed(context, navigationPoint);
                 },
               ),
             ],

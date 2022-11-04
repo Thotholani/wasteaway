@@ -141,8 +141,61 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ServiceCard(
                       icon: FeatherIcons.package,
                       text: "On Demand\nPickup",
-                      function: () {
-                        navigateToPage("/ondemand", context);
+                      function: () async {
+                        if (double.parse(await getBalance(user_id)) < 80) {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Center(
+                                      child: Column(children: [
+                                        Icon(
+                                          FeatherIcons.alertCircle,
+                                          size: 50,
+                                          color: Color(thirdYellowColor),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        const Text('Balance is Low')
+                                      ])),
+                                  content: Text(
+                                    "Would you like to load cash to proceed with the on-demand pickup?",
+                                    style: Theme.of(context).textTheme.bodyText1,
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      child: const Text(
+                                        'Yes',
+                                        style: TextStyle(color: Colors.green),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    LoadCashScreen(
+                                                        user_id: user_id,navigation: "/ondemand",)));
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: const Text(
+                                        'No',
+                                        style: TextStyle(color: Colors.red),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                              barrierDismissible: false);
+                          await Future.delayed(const Duration(seconds: 3), () {});
+                        } else {
+                          navigateToPage("/ondemand", context);
+                        }
                       },
                     ),
                     SizedBox(
@@ -195,7 +248,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     LoadCashScreen(
-                                                        user_id: user_id)));
+                                                        user_id: user_id,navigation: "/subscription",)));
                                       },
                                     ),
                                     TextButton(
