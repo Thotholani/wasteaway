@@ -93,7 +93,7 @@ class CollectionsService {
         showDialog(context: context, builder: (BuildContext context) {
           return AlertDialog(
             title: Center(child: Column(children: [
-              Icon(FeatherIcons.checkCircle,size: 50,color: Color(secondaryGreenColor),),
+              Image.asset("assets/images/confirmation_tick.png",width: MediaQuery.of(context).size.height * 0.1,),
               SizedBox(height: 5,),
               const Text('Success')
             ])),

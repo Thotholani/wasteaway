@@ -66,7 +66,6 @@ class _PinScreenState extends State<PinScreen> {
                         backgroundColor: Color(cancelRedColor),
                       ) :
                       Navigator.push(context, MaterialPageRoute(builder: (context) => LocationScreen(widget.name, widget.email, widget.phoneNumber, widget.password, pin)));
-                      pin = "";
                       setState((){
                         pinController.clear();
                       });

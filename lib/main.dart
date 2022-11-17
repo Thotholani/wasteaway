@@ -19,7 +19,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
-  String url = "http://192.168.174.239/wa_server";
+  String url = "http://192.168.43.239/wa_server";
   // String url = "https://wasteaway.000webhostapp.com";
 
   @override
