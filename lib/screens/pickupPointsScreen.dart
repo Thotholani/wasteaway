@@ -8,11 +8,15 @@ import '../services/pickupPointsService.dart';
 import '../theme.dart';
 import 'dashboardScreen.dart';
 
+List<Marker> markers = [];
+int runs = 0;
+
 class PickupPointsScreen extends StatelessWidget {
   const PickupPointsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    runs = 0;
     return Scaffold(
       appBar: AppBar(
         title: Text("Pickup Points"),
@@ -28,12 +32,9 @@ class PickupPointsScreen extends StatelessWidget {
         leadingWidth: 80,
       ),
       body: SafeArea(
-        child: Padding(
-            padding: const EdgeInsets.all(22.0),
-            child: Center(
-                child: Container(
-                    child: showMyLocations(MediaQuery.of(context).size.height * 0.8)
-            )
+        child: Center(
+            child: Container(
+                child: showMyLocations(MediaQuery.of(context).size.height)
         )
         ),
       ),
@@ -121,45 +122,12 @@ class PickupPointsScreen extends StatelessWidget {
     );
   }
 
-  // Widget buildMapWithMarkers(List<PickupPoint> pickupPoints) {
-  //   print(
-  //       "Printing what is in pickupPointsVariable after connection is successful:");
-  //   print(pickupPoints);
-  //
-  //   List<Marker> markers = [];
-  //   Map<int, PickupPoint> pointsAsMap = pickupPoints.asMap();
-  //
-  //   for (int i = 0; i <= pickupPoints.length; i++) {
-  //     var latitude = pointsAsMap[i]!.latitude;
-  //     var longitude = pointsAsMap[i]!.longitude;
-  //
-  //     markers.add(
-  //         Marker(
-  //             markerId: MarkerId(i.toString(),
-  //             ),
-  //             position: LatLng(double.parse(latitude), double.parse(longitude)),
-  //             infoWindow: InfoWindow(title: pointsAsMap[i]!.address)
-  //         )
-  //     );
-  //   }
-  //   print("Printing markers");
-  //   print(markers);
-  //   return GoogleMap(
-  //     initialCameraPosition: CameraPosition(
-  //         target: LatLng(-15.4081, 28.2963),
-  //         zoom: 11.5
-  //     ),
-  //     markers: Set<Marker>.of(markers),
-  //   );
-  // }
-
   Widget buildMapWithMarkers(List<PickupPoint> pickupPoints, double deviceHeight) =>
       ListView.builder(
           itemCount: pickupPoints.length,
           itemBuilder: (context, index) {
             final pickupPoint = pickupPoints[index];
 
-            List<Marker> markers = [];
             Map<int, PickupPoint> pointsAsMap = pickupPoints.asMap();
 
             markers.add(
@@ -170,16 +138,23 @@ class PickupPointsScreen extends StatelessWidget {
                     double.parse(pickupPoint.longitude)),
                 infoWindow: InfoWindow(title: pickupPoint.address)
             ));
+            runs++;
 
-            return Container(
-              height: deviceHeight,
-              child: GoogleMap(
-                initialCameraPosition: CameraPosition(
-                    target: LatLng(-15.4081, 28.2963),
-                    zoom: 11.5
+            if(runs == pickupPoints.length) {
+              return Container(
+                height: deviceHeight,
+                child: GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                      target: LatLng(-15.4081, 28.2963),
+                      zoom: 11.5
+                  ),
+                  markers: Set<Marker>.of(markers),
                 ),
-                markers: Set<Marker>.of(markers),
-              ),
-            );
+              );
+            } else {
+              return SizedBox(
+                height: 0,
+              );
+            }
           });
 }
