@@ -91,7 +91,7 @@ void login(email, password, BuildContext context) async {
       sharedPreferences.setString("phoneNumber", jsondata['phoneNumber']);
       sharedPreferences.setString("balance", jsondata['balance']);
       sharedPreferences.setString("email", jsondata['email']);
-      sharedPreferences.setString("subscription_plan", jsondata['subscription_plan']);
+      sharedPreferences.setString("subscription_plan", jsondata['package_plan']);
       sharedPreferences.setString("number_of_pickups", jsondata['number_of_pickups']);
       sharedPreferences.setString("no_pickup_points", jsondata['no_pickup_points']);
 

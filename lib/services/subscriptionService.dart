@@ -42,7 +42,7 @@ class SubscriptionService {
       showDialog(
           context: context,
           builder: (BuildContext context) {
-            return ProgressDialog(message: "Processing your \nsubscription.Please Wait...");
+            return ProgressDialog(message: "Processing your \nsubscription. \nPlease Wait...");
           },
           barrierDismissible: false);
       if (jsondata["success"]) {

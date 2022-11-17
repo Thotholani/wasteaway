@@ -134,7 +134,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                   setState(() {
                     selectedPlanIndex = index;
                     chosenSubscriptionPlan =
-                        subscriptionPlans[selectedPlanIndex].subscription_plan;
+                        subscriptionPlans[selectedPlanIndex].package_plan;
                     planIsSelected = true;
                   });
                 },
@@ -165,7 +165,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                                   children: [
                                     Text(subscriptionPlan.billing_time),
                                     Text(
-                                      "K" + subscriptionPlan.fee + "/month",
+                                      "K" + subscriptionPlan.price + "/month",
                                       style: TextStyle(
                                           color: Color(primaryBlueColor),
                                           fontSize: 20,

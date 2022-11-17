@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location_geocoder/location_geocoder.dart';
 import 'package:wasteaway/components/buttons.dart';
 import 'package:wasteaway/components/inputBox.dart';
 import 'package:wasteaway/screens/subscription_screens/subscriptionCollectorScreen.dart';
@@ -151,9 +152,17 @@ class _LocationScreenState extends State<LocationScreen> {
   }
 
   Future<String> getAddressInText(double lat, double long) async {
+
+    const _apiKey = 'AIzaSyCZZ_8RSLTF0eQIyjXpjXb51AwanWMm-yg';
+    final LocatitonGeocoder geocoder = LocatitonGeocoder(_apiKey);
+    final addressSecond = await geocoder
+        .findAddressesFromCoordinates(Coordinates(lat, long));
+  addressSecond.first.featureName;
+
     List<Placemark> placemark = await placemarkFromCoordinates(lat, long);
+    // print(placemark);
     Placemark place = placemark[0];
-    print(place);
+    // print(place);
     var address = "${place.street!}, ${place.subAdministrativeArea!} ${place.locality!}, ${place.administrativeArea!}, ${place.country!}";
     print("This is the address: $address");
     return address;

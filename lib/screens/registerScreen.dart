@@ -45,15 +45,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   passwordInputBox(passwordController: passwordController),
                   SizedBox(height: 15,),
                   PrimaryBlueButton(buttonText: "Register",onPressed: (){
-                    emailController.text.isNotEmpty && passwordController.text.isNotEmpty && fullnameController.text.isNotEmpty && phonenumberController.text.isNotEmpty ? emailController
-                        .text.contains("@")
-                        ? Navigator.push(context, MaterialPageRoute(builder: (context) => PinScreen(fullnameController.text, emailController.text, phonenumberController.text, passwordController.text))) : Fluttertoast.showToast(
-                      msg: "Your email must contain the @ symbol ",
-                      backgroundColor: Color(cancelRedColor),
-                    ) : Fluttertoast.showToast(
-                      msg: "Please fill in all fields",
-                      backgroundColor: Color(cancelRedColor),
-                    );
+                    if(phonenumberController.text.length == 10) {
+                      emailController.text.isNotEmpty && passwordController.text.isNotEmpty && fullnameController.text.isNotEmpty && phonenumberController.text.isNotEmpty ? emailController
+                          .text.contains("@") ? Navigator.push(context, MaterialPageRoute(builder: (context) => PinScreen(fullnameController.text, emailController.text, phonenumberController.text, passwordController.text))) : Fluttertoast.showToast(
+                        msg: "Your email must contain the @ symbol ",
+                        backgroundColor: Color(cancelRedColor),
+                      ) : Fluttertoast.showToast(
+                        msg: "Please fill in all fields",
+                        backgroundColor: Color(cancelRedColor),
+                      );
+                    } else {
+                      Fluttertoast.showToast(
+                        msg: "Your phone number should be exactly 10 digits long",
+                        backgroundColor: Color(cancelRedColor),
+                      );
+                    }
                   },),
                   SizedBox(height: 20,),
                   TextButton(

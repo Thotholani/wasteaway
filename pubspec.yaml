@@ -30,6 +30,7 @@ dependencies:
   avatar_glow:
   shimmer: ^2.0.0
   smooth_page_indicator:
+  location_geocoder:
 
 dev_dependencies:
   flutter_test:

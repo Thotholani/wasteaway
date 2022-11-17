@@ -70,7 +70,7 @@ class WalletScreen extends StatelessWidget {
                         Text("K$balance.00",
                             style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 64,
+                                fontSize: MediaQuery.of(context).size.width * 0.15,
                                 fontWeight: FontWeight.bold
                             ),
                             textAlign: TextAlign.center,
