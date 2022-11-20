@@ -14,6 +14,8 @@ import 'package:wasteaway/services/authentication.dart';
 import 'package:wasteaway/theme.dart';
 import 'package:geocoding/geocoding.dart';
 
+var addressSecond = "";
+
 class LocationScreen extends StatefulWidget {
   LocationScreen(this.username, this.email, this.phoneNumber, this.password, this.pin);
 
@@ -94,6 +96,12 @@ class _LocationScreenState extends State<LocationScreen> {
                                 markers.clear();
                                 markers.add(Marker(markerId: MarkerId('currentLocation'),position: LatLng(position.latitude, position.longitude)));
                                 var addressInText = await getAddressInText(position.latitude, position.longitude);
+                                const _apiKey = 'AIzaSyCZZ_8RSLTF0eQIyjXpjXb51AwanWMm-yg';
+                                final LocatitonGeocoder geocoder = LocatitonGeocoder(_apiKey);
+
+                                var add = await geocoder.findAddressesFromCoordinates(Coordinates(position.latitude, position.longitude));
+                                addressSecond = add.first.featureName!;
+
                                 widget.latitude = position.latitude;
                                 widget.longitude = position.longitude;
                                 locationController.text = addressInText;
@@ -109,7 +117,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 ),
                 SizedBox(height: 30,),
                 SecondaryGreenButton(buttonText: "Finish", onPressed: () {
-                  widget.latitude != 0.0 && widget.longitude != 0.0 ? register(widget.username,widget.email,widget.phoneNumber,widget.password,widget.pin,locationController.text,widget.latitude.toString(),widget.longitude.toString(),context)
+                  widget.latitude != 0.0 && widget.longitude != 0.0 ? register(widget.username,widget.email,widget.phoneNumber,widget.password,widget.pin,locationController.text,addressSecond,widget.latitude.toString(),widget.longitude.toString(),context)
                   : Fluttertoast.showToast(
                     msg: "Please click the blue location button to get your location",
                     backgroundColor: Color(cancelRedColor),
@@ -152,12 +160,6 @@ class _LocationScreenState extends State<LocationScreen> {
   }
 
   Future<String> getAddressInText(double lat, double long) async {
-
-    const _apiKey = 'AIzaSyCZZ_8RSLTF0eQIyjXpjXb51AwanWMm-yg';
-    final LocatitonGeocoder geocoder = LocatitonGeocoder(_apiKey);
-    final addressSecond = await geocoder
-        .findAddressesFromCoordinates(Coordinates(lat, long));
-  addressSecond.first.featureName;
 
     List<Placemark> placemark = await placemarkFromCoordinates(lat, long);
     // print(placemark);

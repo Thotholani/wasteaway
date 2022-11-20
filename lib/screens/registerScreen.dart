@@ -45,7 +45,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   passwordInputBox(passwordController: passwordController),
                   SizedBox(height: 15,),
                   PrimaryBlueButton(buttonText: "Register",onPressed: (){
-                    if(phonenumberController.text.length == 10) {
+                    if(phonenumberController.text.length == 10 && phonenumberController.text.startsWith("0")) {
                       emailController.text.isNotEmpty && passwordController.text.isNotEmpty && fullnameController.text.isNotEmpty && phonenumberController.text.isNotEmpty ? emailController
                           .text.contains("@") ? Navigator.push(context, MaterialPageRoute(builder: (context) => PinScreen(fullnameController.text, emailController.text, phonenumberController.text, passwordController.text))) : Fluttertoast.showToast(
                         msg: "Your email must contain the @ symbol ",
@@ -56,7 +56,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       );
                     } else {
                       Fluttertoast.showToast(
-                        msg: "Your phone number should be exactly 10 digits long",
+                        msg: "Your phone number should be exactly 10 digits long and start with 0",
                         backgroundColor: Color(cancelRedColor),
                       );
                     }

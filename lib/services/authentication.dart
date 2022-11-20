@@ -10,7 +10,7 @@ import 'package:wasteaway/models/client.dart';
 
 String apiURL = MyApp().url;
 
-Future<void> register(name, email, phoneNumber, password, pin, address, latitude, longitude, BuildContext context) async {
+Future<void> register(name, email, phoneNumber, password, pin, address,addressName, latitude, longitude, BuildContext context) async {
   String url = apiURL;
   url = url + "/register.php";
 
@@ -24,6 +24,7 @@ Future<void> register(name, email, phoneNumber, password, pin, address, latitude
     'password': password,
     'pin': pin,
     'address': address,
+    'addressName':addressName,
     'latitude': latitude,
     'longitude': longitude,
   });

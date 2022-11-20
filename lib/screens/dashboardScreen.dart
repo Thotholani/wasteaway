@@ -58,6 +58,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    setState((){
+      balance = sharedPrefs.getString("balance")!;
+      subscriptionPlan = sharedPrefs.getString("subscription_plan")!;
+    });
     return Scaffold(
       appBar: AppBar(
         iconTheme: dashboardDrawerIconTheme,

@@ -126,3 +126,24 @@ class FrontIconButton extends StatelessWidget {
     );
   }
 }
+
+class ColorButton extends StatelessWidget {
+  ColorButton({required this.buttonText, required this.onPressed, required this.color});
+
+  final String buttonText;
+  final VoidCallback onPressed;
+  final int color;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: 55,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        child: Text(buttonText),
+        style: ElevatedButton.styleFrom(primary: Color(color)),
+      ),
+    );
+  }
+}

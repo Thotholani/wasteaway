@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/progressDialog.dart';
 import '../main.dart';
@@ -34,6 +35,10 @@ String apiURL = MyApp().url;
       if (jsondata["success"]) {
         await Future.delayed(const Duration(seconds: 1), () {});
         Navigator.pop(context);
+
+        final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+        sharedPreferences.setString("balance", jsondata['balance']);
+
         showDialog(context: context, builder: (BuildContext context) {
           return AlertDialog(
             title: Center(child: Column(children: [

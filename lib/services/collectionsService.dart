@@ -22,7 +22,7 @@ class CollectionsService {
 
   static void cancelRequest(String collectionId, BuildContext context) async {
     String url = MyApp().url;
-    url = url+"/cancelRequest.php";
+    url = url + "/cancelRequest.php";
 
     // final response = await http.get(Uri.parse(url));
     var response = await http.post(Uri.parse(url), body: {
@@ -35,7 +35,8 @@ class CollectionsService {
       showDialog(
           context: context,
           builder: (BuildContext context) {
-            return ProgressDialog(message: "Canceling Request.\n Please Wait...");
+            return ProgressDialog(
+                message: "Canceling Request.\n Please Wait...");
           },
           barrierDismissible: false);
       if (jsondata["success"]) {
@@ -44,14 +45,22 @@ class CollectionsService {
         showDialog(context: context, builder: (BuildContext context) {
           return AlertDialog(
             title: Center(child: Column(children: [
-              Icon(FeatherIcons.checkCircle,size: 50,color: Color(secondaryGreenColor),),
+              Image.asset(
+                "assets/images/confirmation_tick.png", width: MediaQuery
+                  .of(context)
+                  .size
+                  .height * 0.1,),
               SizedBox(height: 5,),
               const Text('Success')
             ])),
-            content: Text(jsondata["message"],style: Theme.of(context).textTheme.bodyText1,),
+            content: Text(jsondata["message"], style: Theme
+                .of(context)
+                .textTheme
+                .bodyText1,),
             actions: [
               TextButton(
-                child: const Text('Dismiss',style: TextStyle(color: Colors.green),),
+                child: const Text(
+                  'Dismiss', style: TextStyle(color: Colors.green),),
                 onPressed: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).pop();
@@ -73,7 +82,7 @@ class CollectionsService {
 
   static void cancelOnDemandRequest(BuildContext context) async {
     String url = MyApp().url;
-    url = url+"/cancelOnDemandRequest.php";
+    url = url + "/cancelOnDemandRequest.php";
 
     var response = await http.get(Uri.parse(url));
 
@@ -83,7 +92,8 @@ class CollectionsService {
       showDialog(
           context: context,
           builder: (BuildContext context) {
-            return ProgressDialog(message: "Canceling Request.\n Please Wait...");
+            return ProgressDialog(
+                message: "Canceling Request.\n Please Wait...");
           },
           barrierDismissible: false);
       if (jsondata["success"]) {
@@ -93,14 +103,22 @@ class CollectionsService {
         showDialog(context: context, builder: (BuildContext context) {
           return AlertDialog(
             title: Center(child: Column(children: [
-              Image.asset("assets/images/confirmation_tick.png",width: MediaQuery.of(context).size.height * 0.1,),
+              Image.asset(
+                "assets/images/confirmation_tick.png", width: MediaQuery
+                  .of(context)
+                  .size
+                  .height * 0.1,),
               SizedBox(height: 5,),
               const Text('Success')
             ])),
-            content: Text(jsondata["message"],style: Theme.of(context).textTheme.bodyText1,),
+            content: Text(jsondata["message"], style: Theme
+                .of(context)
+                .textTheme
+                .bodyText1,),
             actions: [
               TextButton(
-                child: const Text('Dismiss',style: TextStyle(color: Colors.green),),
+                child: const Text(
+                  'Dismiss', style: TextStyle(color: Colors.green),),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -115,6 +133,59 @@ class CollectionsService {
           msg: jsondata["message"],
           backgroundColor: Color(cancelRedColor),
         );
+      }
+    }
+  }
+
+  static void redeemFreeOnDemand(BuildContext context, String collectionId) async {
+    String url = MyApp().url;
+    url = url + "/redeemFOD.php";
+
+    // final response = await http.get(Uri.parse(url));
+    var response = await http.post(Uri.parse(url), body: {
+      'collection_id': collectionId,
+    });
+
+    if (response.statusCode == 200) {
+      print("This is the response " + response.body.toString());
+      var jsondata = jsonDecode(response.body.toString());
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return ProgressDialog(
+                message: "Redeeming your\n free on demand.\n Please Wait...");
+          },
+          barrierDismissible: false);
+      if (jsondata["success"]) {
+        await Future.delayed(const Duration(seconds: 1), () {});
+        Navigator.pop(context);
+        showDialog(context: context, builder: (BuildContext context) {
+          return AlertDialog(
+            title: Center(child: Column(children: [
+              Image.asset(
+                "assets/images/confirmation_tick.png", width: MediaQuery
+                  .of(context)
+                  .size
+                  .height * 0.1,),
+              SizedBox(height: 5,),
+              const Text('Success')
+            ])),
+            content: Text(jsondata["message"], style: Theme
+                .of(context)
+                .textTheme
+                .bodyText1,),
+            actions: [
+              TextButton(
+                child: const Text(
+                  'Okay', style: TextStyle(color: Colors.green),),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
       }
     }
   }

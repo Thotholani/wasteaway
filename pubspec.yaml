@@ -41,6 +41,7 @@ dev_dependencies:
 flutter_native_splash:
   color: "#282D46"
   image: assets/images/splash_logo.png
+  fullscreen: true
 
 flutter:
   uses-material-design: true

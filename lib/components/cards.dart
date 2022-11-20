@@ -110,6 +110,7 @@ class ServiceCard extends StatelessWidget {
       ];
   
       if(status == "Completed") {
+        int dropDownColor = 0xffffffff;
         setState(() {
           icon = EvaIcons.checkmarkCircle;
           iconColor = secondaryGreenColor;
@@ -130,6 +131,7 @@ class ServiceCard extends StatelessWidget {
                             Text("What type of problem have you encountered", style: TextStyle(color: Color(primaryBlueColor),fontSize: 16),),
                             SizedBox(height: 5,),
                             DropdownButton(
+                              dropdownColor: Color(dropDownColor),
                               isExpanded: true,
                               value: selectedItem,
                               focusColor: Color(greyishBlueColor),
@@ -137,12 +139,19 @@ class ServiceCard extends StatelessWidget {
                               style: TextStyle(color: Color(greyishBlueColor)),
                                 items: [
                                   DropdownMenuItem(child: Text("Uncollected Garbage"),value: "Uncollected Garbage",),
-                                  DropdownMenuItem(child: Text("Late Collection"),value: "Late Collection",),
-                                  DropdownMenuItem(child: Text("Garbage Items Left"),value: "Garbage Items Left",),
+                                  DropdownMenuItem(child: Text("Late Pickup"),value: "Late Pickup",),
+                                  DropdownMenuItem(child: Text("Other"),value: "Other",),
                                 ], onChanged: (newValue){
-                                setState((){
-                                  selectedItem = newValue.toString();
-                                });
+                                if(dropDownColor == 0xffffffff) {
+                                  dropDownColor == greyishBlueColor;
+                                } else {
+                                  dropDownColor == 0xffffffff;
+                                }
+                                print(newValue);
+                                selectedItem = newValue.toString();
+                                // setState((){
+                                //   selectedItem = newValue.toString();
+                                // });
                             }),
                             SizedBox(height: 15,),
                             Text("Describe your problem", style: TextStyle(color: Color(primaryBlueColor),fontSize: 16),),
@@ -194,6 +203,16 @@ class ServiceCard extends StatelessWidget {
           iconColor = tealColor;
           actions = [
             PrimaryBlueButton(buttonText: 'Call Collector', onPressed: (){})
+          ];
+        });
+      } else if (status == "FOD") {
+        setState(() {
+          icon = EvaIcons.searchOutline;
+          iconColor = 0xff838BA1;
+          actions = [
+            ColorButton(buttonText: 'Redeem Free On Demand',color: 0xff838BA1, onPressed: (){
+              CollectionsService.redeemFreeOnDemand(context, collectionNumber);
+            })
           ];
         });
       }
