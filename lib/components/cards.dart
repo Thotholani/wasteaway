@@ -3,12 +3,15 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:wasteaway/services/collectionsService.dart';
 import 'package:wasteaway/services/ticketsService.dart';
 
 import '../theme.dart';
 import 'buttons.dart';
+
+final DateFormat formatter = DateFormat('d MMM yyyy');
 
 class SideDivider extends StatelessWidget {
   SideDivider({required this.color});
@@ -202,7 +205,7 @@ class ServiceCard extends StatelessWidget {
           icon = EvaIcons.searchOutline;
           iconColor = tealColor;
           actions = [
-            PrimaryBlueButton(buttonText: 'Call Collector', onPressed: (){})
+            // PrimaryBlueButton(buttonText: 'Call Collector', onPressed: (){})
           ];
         });
       } else if (status == "FOD") {
@@ -234,8 +237,8 @@ class ServiceCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("Collection Number: " + collectionNumber,style: Theme.of(context).textTheme.bodyText1,),
-                    Text("Date: "+ date,style: Theme.of(context).textTheme.bodyText1,),
-                    Text("Fee: k"+ fee,style: Theme.of(context).textTheme.bodyText1,),
+                    Text("Date: "+ formatter.format(DateTime.parse(date)),style: Theme.of(context).textTheme.bodyText1,),
+                    Text("Fee: K"+ fee +"0",style: Theme.of(context).textTheme.bodyText1,),
                     Text("Status: "+ status,style: Theme.of(context).textTheme.bodyText1,)
                   ],
                 )
